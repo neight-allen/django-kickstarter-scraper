@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html class="projects_search no-js fontface " lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns="http://www.w3.org/1999/xhtml">
+<head><script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><title>Discover Projects &raquo; Search &mdash; Kickstarter</title><!--[if lt IE 9]>
+  <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="telephone=no" name="format-detection">
+<link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/fonts/fonts.css" media="screen" rel="stylesheet" type="text/css">
+<link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/assets/compass.css" media="screen" rel="stylesheet" type="text/css" />
+<!--[if lte IE 8]>
+  <link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/stylesheets/compass/library/ie8.css" media="screen" rel="stylesheet" type="text/css" />
+<![endif]-->
+<!--[if lte IE 7]>
+  <link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/stylesheets/compass/library/ie.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/assets/ie_seven.css" media="screen" rel="stylesheet" type="text/css" />
+<![endif]-->
+<!--[if IE 6]>
+  <link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/assets/ie_six.css" media="screen" rel="stylesheet" type="text/css" />
+<![endif]-->
+
+
+<link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/assets/views_one.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/assets/views_two.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/assets/views_three.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/assets/views_four.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/favicon.png" rel="icon" type="image/png">
+<link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/apple-touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png">
+<link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/apple-touch-icon-ipad-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72" type="image/png">
+<link href="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/apple-touch-icon-iphone4-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114" type="image/png">
+
+
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="Uyd36DLSl/z+79ncz/CUzK2RrYIwhdoRaIhQa47PkcU=" name="csrf-token" />
+
+<script>
+  //<![CDATA[
+    var _sf_startpt=(new Date()).getTime();
+    docElement = this.document.documentElement;
+    docElement.className=docElement.className.replace(/\bno-js\b/,'') + 'js';
+  //]]>
+</script>
+<script>
+  //<![CDATA[
+    function timeRemaining(epochTime){
+    
+      var diff = epochTime - ((new Date()).getTime() / 1000);
+      var num_unit = (diff < 60 && [Math.max(diff, 0), 'seconds']) ||
+        ((diff/=60) < 60 && [diff, 'minutes']) ||
+        ((diff/=60) < 72 && [diff, 'hours']) ||
+        [diff/=24, 'days'];
+    
+      // Round down
+      num_unit[0] = Math.floor(num_unit[0]);
+      // Singularize unit
+      if (num_unit[0] == 1) { num_unit[1] = num_unit[1].replace(/s$/,""); }
+    
+      return num_unit;
+    };
+  //]]>
+</script>
+</head>
+
+<body class="discover projects" id="projects_search">
+<div class="jGrowl center" id="growl_section"></div>
+<div class="hidden" id="social-tout">
+<a href="/friends"><b>New!</b> Get social and discover great projects with your friends! <span class='link'>See how it works</span></a>
+<span class="icon-close">
+<span class="icon"></span>
+</span>
+</div>
+<div id="header-wrap">
+<div class="container logged-in" id="header">
+<h1 id="logo"><a href="/"><span>Kickstarter</span></a></h1>
+<a href="/help/faq/kickstarter%20basics?ref=nav" id="what_is_kickstarter_link">What is Kickstarter?</a>
+<ul id="menu-main">
+<li id="menu-main-discover"><a href="/discover"><strong>Discover</strong> <span>great projects</span></a></li>
+<li id="menu-main-fund"><a href="/start"><strong>Start</strong> <span>your project</span></a></li>
+</ul>
+<form accept-charset="UTF-8" action="/projects/search" class="search overlabels" method="get"><div style="margin:0;padding:0;display:inline"><input class="hidden" name="utf8" type="hidden" value="&#x2713;" /></div>
+<div class="field search">
+<span class="icon-search"></span>
+<span class="icon-search-clear"></span>
+<label class="overlabel overlabel-search">Search projects</label>
+<input class="input-search header text" data-tracker-name="Header Live Search" id="term" name="term" type="text" value="i" />
+<span class="icon-search-nipple"></span>
+</div>
+</form>
+
+<ul id="menu-sub">
+<li id="menu-sub-help"><a href="/help">Help</a></li>
+<li class="dropdown" id="menu-sub-message">
+<a href="/messages" title="Inbox"><span class="icon-message">Messages</span>
+</a><span class="menu-dropdown-corner"></span>
+<div class="dropdown-child" id="menu-messages-children">
+<ul class="hit-list" id="menu-messages-list">
+<li class="first">
+<h4>Inbox</h4>
+</li>
+<li>
+<div class="avatar"><a href="/messages/1993420?ref=menu"><img alt="Thumbavatar.thumb" class="avatar-thumb" height="40" src="https://s3.amazonaws.com/ksr/avatars/1815469/thumbavatar.thumb.jpg?1326331105" width="40" /></a></div>
+<span class="name"><a href="/messages/1993420?ref=menu">Idle Thumbs</a></span>
+<span class="message"><a href="/messages/1993420?ref=menu" class="target">Got it</a></span>
+</li>
+<li>
+<div class="avatar"><a href="/messages/1745077?ref=menu"><img alt="Profile.thumb" class="avatar-thumb" height="40" src="https://s3.amazonaws.com/ksr/avatars/1695592/profile.thumb.jpg?1343885358" width="40" /></a></div>
+<span class="name"><a href="/messages/1745077?ref=menu">Team Ubi</a></span>
+<span class="message"><a href="/messages/1745077?ref=menu" class="target">Hey Nate,
+
+Thanks so much for backing our&hellip;</a></span>
+</li>
+<li>
+<div class="avatar"><a href="/messages/1146972?ref=menu"><img alt="Alistairchnc.thumb" class="avatar-thumb" height="40" src="https://s3.amazonaws.com/ksr/avatars/2357165/alistairchnc.thumb.jpg?1333232790" width="40" /></a></div>
+<span class="name"><a href="/messages/1146972?ref=menu">Antennas Up</a></span>
+<span class="message"><a href="/messages/1146972?ref=menu" class="target">Thank you for supporting the effort to get&hellip;</a></span>
+</li>
+<li>
+<div class="avatar"><a href="/messages/1133709?ref=menu"><img alt="Freddy-wong.thumb" class="avatar-thumb" height="40" src="https://s3.amazonaws.com/ksr/avatars/44446/Freddy-Wong.thumb.jpg?1316368185" width="40" /></a></div>
+<span class="name"><a href="/messages/1133709?ref=menu">Freddie Wong</a></span>
+<span class="message"><a href="/messages/1133709?ref=menu" class="target">Hello $25 backers!
+
+If you need to change&hellip;</a></span>
+</li>
+<li>
+<div class="avatar"><a href="/messages/1061188?ref=menu"><img alt="%c2%a9%20jon%20margolis-marchfourth%20marching%20band.thumb" class="avatar-thumb" height="40" src="https://s3.amazonaws.com/ksr/avatars/204063/%C2%A9%20Jon%20Margolis-MarchFourth%20Marching%20Band.thumb.jpg?1326430392" width="40" /></a></div>
+<span class="name"><a href="/messages/1061188?ref=menu">March Fourth Marching Band</a></span>
+<span class="message"><a href="/messages/1061188?ref=menu" class="target">Good news! Your CD has been mailed! Depending&hellip;</a></span>
+</li>
+<li class="last"><a href="/messages?ref=menu" class="button-neutral">View all messages</a></li>
+</ul>
+</div>
+
+</li>
+<li class="dropdown" id="menu-sub-activity">
+<a href="/activity" title="Activity"><span class="icon-activity">Activity</span>
+</a><span class="menu-dropdown-corner"></span>
+<div class="dropdown-child" id="menu-activity-children">
+<ul class="hit-list" id="menu-activity-list">
+<li class="first">
+<h4>Recent Activity</h4>
+</li>
+<li class="update">
+<div class="avatar"><a href="/projects/doublefine/double-fine-adventure/posts/336780?ref=activity"><img alt="Photo-thumb" src="https://s3.amazonaws.com/ksr/projects/73409/photo-thumb.jpg?1328745699" /></a></div>
+<span class="name"><a href="/projects/doublefine/double-fine-adventure/posts/336780?ref=activity">Double Fine Adventure</a></span>
+<span class="message"><a href="/projects/doublefine/double-fine-adventure/posts/336780?ref=activity" class="target">Update #13: Episode 6: That Bagel Filter Thing</a></span>
+</li>
+<li class="update">
+<div class="avatar"><a href="/projects/freddiew/video-game-high-school/posts/335220?ref=activity"><img alt="Photo-thumb" src="https://s3.amazonaws.com/ksr/projects/49936/photo-thumb.jpg?1316368986" /></a></div>
+<span class="name"><a href="/projects/freddiew/video-game-high-school/posts/335220?ref=activity">Video Game High School</a></span>
+<span class="message"><a href="/projects/freddiew/video-game-high-school/posts/335220?ref=activity" class="target">Update #14: DVD/Blu-Ray Ship Date</a></span>
+</li>
+<li class="update">
+<div class="avatar"><a href="/projects/stainlessgames/carmageddon-reincarnation/posts/334297?ref=activity"><img alt="Photo-thumb" src="https://s3.amazonaws.com/ksr/projects/81831/photo-thumb.jpg?1335362854" /></a></div>
+<span class="name"><a href="/projects/stainlessgames/carmageddon-reincarnation/posts/334297?ref=activity">Carmageddon: Reincarnation</a></span>
+<span class="message"><a href="/projects/stainlessgames/carmageddon-reincarnation/posts/334297?ref=activity" class="target">Update #30: It&#x27;s Survey Time!</a></span>
+</li>
+<li class="update">
+<div class="avatar"><a href="/projects/blytherenay/damsels-of-dorkington-2012-season/posts/330334?ref=activity"><img alt="Photo-thumb" src="https://s3.amazonaws.com/ksr/projects/94603/photo-thumb.jpg?1331248596" /></a></div>
+<span class="name"><a href="/projects/blytherenay/damsels-of-dorkington-2012-season/posts/330334?ref=activity">Damsels of Dorkington 2012 Season</a></span>
+<span class="message"><a href="/projects/blytherenay/damsels-of-dorkington-2012-season/posts/330334?ref=activity" class="target">Update #11: From the Mind of Mark Driscoll</a></span>
+</li>
+<li class="update">
+<div class="avatar"><a href="/projects/antennasup/antennas-up-radio-promotion-of-the-awkward-phase/posts/325821?ref=activity"><img alt="Photo-thumb" src="https://s3.amazonaws.com/ksr/projects/121271/photo-thumb.jpg?1334255382" /></a></div>
+<span class="name"><a href="/projects/antennasup/antennas-up-radio-promotion-of-the-awkward-phase/posts/325821?ref=activity">Antennas Up: Radio Promotion of &quot;The ...</a></span>
+<span class="message"><a href="/projects/antennasup/antennas-up-radio-promotion-of-the-awkward-phase/posts/325821?ref=activity" class="target">Update #10: Posters are in!</a></span>
+</li>
+<li class="last"><a href="/activity?ref=menu" class="button-neutral">View all activity</a></li>
+</ul>
+</div>
+
+</li>
+<li class="dropdown" id="menu-sub-me">
+<a href="/profile/191457940"><span id='me-avatar'><img alt="Missing_icon" class="avatar-icon" height="20" src="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/images/users/missing_icon.png" width="20" /></span>Me<span class='icon-dropdown'></span></a>
+<div class="NS_layouts__user_dropdown" data-user_dropdown_backer_creator_columns_path="/users/dropdown_backer_creator_columns">
+<span class="menu-dropdown-corner"></span>
+<div class="dropdown-child" id="menu-me-children">
+<ul id="menu-me-account">
+<li>
+<h4>My Account</h4>
+</li>
+<li><a href="/profile/191457940">My Profile</a></li>
+<li><a href="https://www.kickstarter.com/profile/transactions">My Backer History</a></li>
+<li><a href="https://www.kickstarter.com/settings">Edit Settings</a></li>
+<li>
+<a href="/friends">Find Friends
+<span class="icon-new"></span>
+</a></li>
+<li class="logout"><a href="https://www.kickstarter.com/logout" class="more-button">Log Out</a></li>
+</ul>
+</div>
+</div>
+
+</li>
+</ul>
+</div>
+</div>
+<div id="search_results-wrap">
+<div id="search_results-shadow">
+<div id="search_results-inner_wrap">
+<div class="container" id="search_results">
+<a class="close"><span class="icon-x"></span></a>
+<h2 class="header"></h2>
+<div id="search_results_panel"></div>
+<p class="footer"></p>
+<a class="prev arrow">
+<span class="icon-search-left"></span>
+<strong>Previous</strong>
+</a>
+<a class="next arrow">
+<span class="icon-search-right"></span>
+<strong>Next</strong>
+</a>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="running-board-wrap">
+<div class="container" id="running-board">
+<div id="discover-header">
+<h1>
+<a href="/discover">Discover</a>
+<span class="divider">/</span>
+Search
+</h1>
+<p class="blurb">
+<span>Sorry, no results for &quot;i&quot;.</span>
+</p>
+
+</div>
+</div>
+<!-- #running-board -->
+</div>
+<!-- #running-board-wrap -->
+<div id="content-wrap">
+<div class="container" id="content">
+<div id="main">
+
+<hr class="space">
+</div>
+<!-- #main -->
+<div id="sidebar-wrap">
+<div id="sidebar">
+<h3><span class='icon-star-dark'></span>Featured</h3>
+<ul class="navigation">
+<li><a href="/discover/recommended?ref=sidebar">Staff Picks</a></li>
+<li><a href="/discover/popular?ref=sidebar">Popular</a></li>
+<li><a href="/discover/recently-launched?ref=sidebar">Recently Launched</a></li>
+<li><a href="/discover/ending-soon?ref=sidebar">Ending Soon</a></li>
+<li><a href="/discover/small-projects?ref=sidebar">Small Projects</a></li>
+<li><a href="/discover/most-funded?ref=sidebar">Most Funded</a></li>
+<li><a href="/discover/curated-pages?ref=sidebar">Curated Pages</a></li>
+</ul>
+<h3><span class='icon-category-dark'></span>Categories</h3>
+<ul class="navigation">
+<li>
+<a href="/discover/categories/art?ref=sidebar">Art</a>
+</li>
+<li>
+<a href="/discover/categories/comics?ref=sidebar">Comics</a>
+</li>
+<li>
+<a href="/discover/categories/dance?ref=sidebar">Dance</a>
+</li>
+<li>
+<a href="/discover/categories/design?ref=sidebar">Design</a>
+</li>
+<li>
+<a href="/discover/categories/fashion?ref=sidebar">Fashion</a>
+</li>
+<li>
+<a href="/discover/categories/film%20&amp;%20video?ref=sidebar">Film &amp; Video</a>
+</li>
+<li>
+<a href="/discover/categories/food?ref=sidebar">Food</a>
+</li>
+<li>
+<a href="/discover/categories/games?ref=sidebar">Games</a>
+</li>
+<li>
+<a href="/discover/categories/music?ref=sidebar">Music</a>
+</li>
+<li>
+<a href="/discover/categories/photography?ref=sidebar">Photography</a>
+</li>
+<li>
+<a href="/discover/categories/publishing?ref=sidebar">Publishing</a>
+</li>
+<li>
+<a href="/discover/categories/technology?ref=sidebar">Technology</a>
+</li>
+<li>
+<a href="/discover/categories/theater?ref=sidebar">Theater</a>
+</li>
+</ul>
+<h3><span class='icon-location-dark'></span>Cities</h3>
+<ul class="navigation">
+<li><a href="/discover/cities/new-york-ny?ref=sidebar">New York</a></li>
+<li><a href="/discover/cities/los-angeles-ca?ref=sidebar">Los Angeles</a></li>
+<li><a href="/discover/cities/brooklyn-ny?ref=sidebar">Brooklyn</a></li>
+<li><a href="/discover/cities/chicago-il?ref=sidebar">Chicago</a></li>
+<li><a href="/discover/cities/san-francisco-ca?ref=sidebar">San Francisco</a></li>
+<li><a href="/discover/cities/portland-or?ref=sidebar">Portland</a></li>
+<li><a href="/discover/cities/seattle-wa?ref=sidebar">Seattle</a></li>
+<li><a href="/discover/cities/austin-tx?ref=sidebar">Austin</a></li>
+<li><a href="/discover/cities/boston-ma?ref=sidebar">Boston</a></li>
+<li><a href="/discover/cities/nashville-tn?ref=sidebar">Nashville</a></li>
+<li><a href="/discover/cities/kansas-city-ks?ref=sidebar">Kansas City</a></li>
+</ul>
+<div class="NS-discover_sidebar" id="location-search">
+<form accept-charset="UTF-8" action="/locations" class="overlabels" method="post"><div style="margin:0;padding:0;display:inline"><input class="hidden" name="utf8" type="hidden" value="&#x2713;" /><input class="hidden" name="authenticity_token" type="hidden" value="Uyd36DLSl/z+79ncz/CUzK2RrYIwhdoRaIhQa47PkcU=" /></div>
+<div class="field search">
+<span class="icon-search"></span>
+<span class="icon-search-clear"></span>
+<label class="overlabel overlabel-search">Search cities</label>
+<input autocomplete="off" class="input-search input-text text" data-tracker-name="Location Live Search" id="q" name="q" type="text" />
+<div class="results">
+<span class="icon-dropdown-pointer"></span>
+</div>
+</div>
+</form>
+
+</div>
+
+</div>
+</div>
+<!-- #sidebar -->
+</div>
+<!-- #content -->
+</div>
+<!-- #content-wrap -->
+
+
+<div id="mega-footer-wrap">
+<div id="mega-footer-shadow">
+<div class="container" id="mega-footer">
+<div id="mega-discover">
+<h5>Browse Categories</h5>
+<ul class="list-footer-categories list-0">
+<li><a href="/discover/categories/art?ref=footer">Art</a></li>
+<li><a href="/discover/categories/comics?ref=footer">Comics</a></li>
+<li><a href="/discover/categories/dance?ref=footer">Dance</a></li>
+<li><a href="/discover/categories/design?ref=footer">Design</a></li>
+<li><a href="/discover/categories/fashion?ref=footer">Fashion</a></li>
+<li><a href="/discover/categories/film%20&amp;%20video?ref=footer">Film &amp; Video</a></li>
+<li><a href="/discover/categories/food?ref=footer">Food</a></li>
+</ul>
+<ul class="list-footer-categories list-1">
+<li><a href="/discover/categories/games?ref=footer">Games</a></li>
+<li><a href="/discover/categories/music?ref=footer">Music</a></li>
+<li><a href="/discover/categories/photography?ref=footer">Photography</a></li>
+<li><a href="/discover/categories/publishing?ref=footer">Publishing</a></li>
+<li><a href="/discover/categories/technology?ref=footer">Technology</a></li>
+<li><a href="/discover/categories/theater?ref=footer">Theater</a></li>
+</ul>
+</div>
+<div id="mega-join-like">
+<form accept-charset="UTF-8" action="/newsletters/signup" class="overlabels" method="post"><div style="margin:0;padding:0;display:inline"><input class="hidden" name="utf8" type="hidden" value="&#x2713;" /><input class="hidden" name="authenticity_token" type="hidden" value="Uyd36DLSl/z+79ncz/CUzK2RrYIwhdoRaIhQa47PkcU=" /></div>
+<h5>Kickstarter's weekly newsletter</h5>
+<p>Get awesome projects delivered to your inbox each week.</p>
+<textarea class="hide textarea" id="comment" name="comment">
+</textarea>
+<input class="button-positive submit" name="commit" type="submit" value="Subscribe" />
+</form>
+
+<h5>Kickstarter on Facebook</h5>
+<fb:like href="http://facebook.com/kickstarter" show_faces="true" width="330"></fb:like>
+</div>
+<div id="mega-connect">
+<h5>Connect with Kickstarter</h5>
+<ul id="list-footer-connect">
+<li><a href="/blog" id="footer-blog"><span class='icon-footer-blog'></span>Read our blog</a></li>
+<li><a href="http://twitter.com/kickstarter" id="footer-twitter"><span class='icon-footer-twitter'></span>Follow on Twitter</a></li>
+<li><a href="http://kickstarter.tumblr.com" id="footer-tumblr"><span class='icon-footer-tumblr'></span>Follow on Tumblr</a></li>
+<li><a href="/team?ref=footer" id="footer-team"><span class='icon-footer-team'></span>Meet the team</a></li>
+<li><a href="/jobs?ref=footer" id="footer-jobs"><span class='icon-footer-jobs'></span>Jobs at Kickstarter</a></li>
+</ul>
+<span class="scissors icon-scissors-1"></span>
+</div>
+</div>
+</div>
+</div>
+<div id="footer-wrap">
+<div class="container" id="footer">
+<div id="etc">
+<ul>
+<li><a href="/blog">Blog</a></li>
+<li><a href="/help?ref=footer">Help</a></li>
+<li><a href="/help/school?ref=footer">Kickstarter School</a></li>
+<li><a href="/help/guidelines?ref=footer">Guidelines</a></li>
+<li><a href="/help/stats?ref=footer">Stats</a></li>
+<li><a href="/terms-of-use?ref=footer">Terms of Use</a></li>
+<li><a href="/privacy?ref=footer">Privacy Policy</a></li>
+<li><a href="/jobs?ref=footer">Jobs</a></li>
+<li class="last"><a href="http://kickstarter.zendesk.com/home" id="" onclick="Zenbox.render(); return false;">Contact</a></li>
+</ul>
+</div>
+<div id="legal">
+&copy;
+2012
+Kickstarter, Inc.
+</div>
+</div>
+</div>
+
+<script>
+  //<![CDATA[
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    var analytics_vars = { google_analytics_id : "UA-7621056-1", logged_in : "true", verifying_backing : "false", social_user: "true" }
+  //]]>
+</script>
+
+
+<script>
+  //<![CDATA[
+    window.mixpanel_id = '75b1d24a516ecfc955eadfadc4910661';
+    window.mixpanel_debug = false;
+  //]]>
+</script>
+
+
+<script>
+  //<![CDATA[
+    _qoptions={qacct:"p-34IbSpw2K94Sg"};
+  //]]>
+</script>
+<script src="http://edge.quantserve.com/quant.js" type="text/javascript"></script>
+<noscript><img alt="Quantcast" border="0" height="1" src="http://pixel.quantserve.com/pixel/p-34IbSpw2K94Sg.gif" style="display:none" width="1" /></noscript>
+
+<script>
+  //<![CDATA[
+    var _sf_async_config={uid:5536,domain:"kickstarter.com"};
+    (function(){
+      function loadChartbeat() {
+        window._sf_endpt=(new Date()).getTime();
+        var e = document.createElement('script');
+        e.setAttribute('language', 'javascript');
+        e.setAttribute('type', 'text/javascript');
+        e.setAttribute('src',
+           (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+           "js/chartbeat.js");
+        document.body.appendChild(e);
+      }
+      var oldonload = window.onload;
+      window.onload = (typeof window.onload != 'function') ?
+         loadChartbeat : function() { oldonload(); loadChartbeat(); };
+    })();
+  //]]>
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script>
+  //<![CDATA[
+    (function(){function c(a){this.local_start_time=new Date;this.settings={cookie_name:"request_time"};for(var b in a)this.settings[b]=a[b];this.get_remote_offset()}c.prototype.get_remote_offset=function(){this.cookie_value=this.read_cookie();var a=new Date(this.cookie_value);if(!this.cookie_value||"Invalid Date"===a.toString()){if(this.remote_offset=this.read_cookie("local_offset"))this.remote_offset=parseInt(this.remote_offset,10)}else this.remote_offset=a-this.local_start_time;"undefined"!==typeof this.remote_offset&& !isNaN(this.remote_offset)?(document.cookie="local_offset="+this.remote_offset+"; path=/",this.is_set=!0):this.is_set=!1};c.prototype.time_units=[["milliseconds",1],["seconds",1E3],["minutes",6E4],["hours",36E5],["days",864E5]];c.prototype.get_units_in_interval=function(a,b){var d=a.replace(/^\w/,function(d){return"get"+d.toUpperCase()});return b[d]()};c.prototype.milliseconds_in_day=function(a){"undefined"===typeof a&&(a=new Date);for(var b=0,d=this.time_units.length-2;0<=d;d--)b+=this.get_units_in_interval(this.time_units[d][0], a)*this.time_units[d][1];return b};c.prototype.milliseconds_in_interval=function(a,b){return this.milliseconds_in_day(b)%a};c.prototype.milliseconds_to_next_interval=function(a,b){return a-this.milliseconds_in_interval(a,b)};c.prototype.pluralize=function(a,b){1===b&&(a=a.replace(/s$/,""));return a};c.prototype.read_cookie=function(a){for(var b=window.document.cookie.split(";"),a=(a||this.settings.cookie_name)+"=",d=0;d<b.length;d++){for(var e=b[d];" "==e.charAt(0);)e=e.substring(1,e.length);if(0== e.indexOf(a))return b=e.substring(a.length,e.length),decodeURIComponent(b).replace(/\+/g," ")}return null};c.prototype.destroy_cookie=function(a){var b=new Date;a||(a=this.settings.cookie_name);b.setTime(b.getTime()-864E5);window.document.cookie=a+"=; expires="+b.toGMTString()+"; path=/"};c.prototype.get_remote_time=function(){var a=new Date,b=a.getTime()+this.remote_offset;return a=a.setTime(b)};window.ksr_page_clock=new c})(); (function(){function c(d,a,b){if(d){this.options={unit_base:{seconds:119,minutes:119,hours:72,days:0},end_phrase:d.getAttribute("data-word")||"to go",count_down:d.getAttribute("data-dynamic")||!1};for(k in b)this.options[k]=b[k];this.clock=a;this.time_units=this.clock.time_units.slice(1);this.element=d;this.clock.is_set&&this.attach()}}function a(){this.elements=[];this.attach()}var b=function(d,a){var b=a||window.document.body,c=d.split("."),g=c[c.length-1],c=1<c.length&&c[0]?c[0]:"*";if(window.document.getElementsByClassName)return b.getElementsByClassName(g); if(b.querySelectorAll)return b.querySelectorAll(d);for(var c=b.getElementsByTagName(c),h=[],i=0,f;f=c[i];i++)b=RegExp("(^|\\s)"+g+"(\\s|$)"),(""+f.className).match(b)&&h.push(f);return h};c.prototype.get_remaining_time=function(){var d=this.remote_end_time-this.clock.get_remote_time();0>d&&(d=0);return d};c.prototype.get_current_unit=function(){for(var d,a=0;a<this.time_units.length&&!(d=this.time_units[a],this.get_remaining_time()<=this.options.unit_base[d[0]]*d[1]);a++);return d};c.prototype.update_element= function(){var a=this.get_current_unit(),b=Math.floor(this.get_remaining_time()/a[1]);isNaN(b)||(this.number_element.innerHTML=b,this.text_element.innerHTML=this.clock.pluralize(a[0],b)+" "+this.options.end_phrase)};c.prototype.valid=function(){return!(!this.number_element||!this.text_element)};c.prototype.attach=function(){function a(){c.update_element();if(c.options.count_down&&0<c.get_remaining_time()){var b=c.get_current_unit();this.timeout=window.setTimeout(a,c.clock.milliseconds_to_next_interval(b[1]))}} var c=this;if(this.remote_end_time_string=this.element.getAttribute("data-end_time"))this.remote_end_time_string.match(/^\d+$/)?(this.remote_end_time=new Date,this.remote_end_time.setTime(this.remote_end_time_string)):this.remote_end_time=new Date(this.remote_end_time_string),this.number_element=b(".num",this.element)[0],this.text_element=b(".text",this.element)[0],this.element.ksr_page_timer=!0,this.valid()&&a()};c.prototype.cancel=function(){this.timeout&&clearTimeout(this.timeout)};a.prototype.loading= !0;a.prototype.stop_finding=function(){this.attach_timers();this.loading=!1;document.addEventListener?document.removeEventListener("DOMContentLoaded",this.stop_finding,!1):document.attachEvent&&"complete"===document.readyState&&document.detachEvent("onreadystatechange",this.stop_finding)};a.prototype.bind_ready=function(){var a=this,b=function(){a.stop_finding.call(a)};document.addEventListener?(document.addEventListener("DOMContentLoaded",b,!1),window.addEventListener("load",b,!1)):document.attachEvent&& (document.attachEvent("onreadystatechange",b),window.attachEvent("onload",b))};a.prototype.attach_timers=function(){for(var a=b("div.ksr_page_timer"),e=0;e<a.length;e++)a[e].ksr_page_timer||(new c(a[e],window.ksr_page_clock),this.elements.push(a[e]))};a.prototype.attach=function(){var a=this;this.bind_ready();(function(){a.attach_timers();a.loading&&window.setTimeout(function(){a.attach_timers()},200)})()};window.ProjectTimer=c;new a})();
+  //]]>
+</script>
+
+<script src="//d297h9he240fqh.cloudfront.net/cache-f7c00f6a6/assets/base.js" type="text/javascript"></script>
+<script>
+  //<![CDATA[
+    if (typeof(Zenbox) !== "undefined") {
+      Zenbox.init({
+        dropboxID: "20012797",
+        tabID: "support",
+        hide_tab: true,
+        url: "kickstarter.zendesk.com",
+        requester_name: 'Nate Allen',
+        requester_email: 'neight.allen@gmail.com'
+      });
+    }
+  //]]>
+</script>
+
+
+<script id="schwamm_formatting_options" type="text/javascript">
+//<![CDATA[
+(function(){window.formatters = window.formatters || {}; var formatting_options = {"distance_date_intervals":[[5,"just now"],[29,"less than a minute ago"],[89,"1 minute ago"],[2640,"%m minutes ago"],[5340,"about 1 hour ago"],[82800,"about %h hours ago"],[147600,"1 day ago"],[604800,"%d days ago"],[15552000,"on %t"],[0,"on %y"]],"currency_symbol_mappings":{"USD":"$","GBP":"\u00a3","EUR":"\u20ac","JPY":"\u00a5"}}; for (key in formatting_options) {window.formatters[key] = formatting_options[key]};}());
+//]]>
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>
+  //<![CDATA[
+    var channelUrl = window.location.protocol + "//" + window.location.host + "/channel.html";
+    
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '69103156693',
+        channelUrl: channelUrl,
+        status: true,    // check login status
+        cookie: true,    // enable cookies to allow the server to access the session
+        xfbml: true,     // parse XFBML
+        logging: false   // turn off logging
+      });
+    
+      $(document).trigger('fb:loaded');
+    
+      var logout_from_fb = $('body').is('.just_logged_out') || false;
+    
+      FB.Event.subscribe('auth.statusChange', function(response) {
+        if (logout_from_fb) {
+          FB.logout(function() {
+            logout_from_fb = false;
+          });
+        } else if (response.authResponse && false && true && true && !FB.usingButton) {
+          $.get("http://www.kickstarter.com/fb/connect/verify?then=http%3A%2F%2Fwww.kickstarter.com%2Fprojects%2Fsearch%3Fpage%3D2%26term%3Di", {'fbsr': response.authResponse.signedRequest}, function() {});
+        }
+      });
+      
+    };
+    
+    
+    // Load the SDK Asynchronously
+    (function(d){
+      var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+      js = d.createElement('script'); js.id = id; js.async = true;
+      js.src = "//connect.facebook.net/en_US/all.js";
+      d.getElementsByTagName('head')[0].appendChild(js);
+    }(document));
+  //]]>
+</script>
+
+
+<script type="text/javascript">if (!NREUMQ.f) { NREUMQ.f=function() {
+NREUMQ.push(["load",new Date().getTime()]);
+var e=document.createElement("script");
+e.type="text/javascript";e.async=true;e.src="https://d1ros97qkrwjf5.cloudfront.net/42/eum/rum.js";
+document.body.appendChild(e);
+if(NREUMQ.a)NREUMQ.a();
+};
+NREUMQ.a=window.onload;window.onload=NREUMQ.f;
+};
+NREUMQ.push(["nrfj","beacon-3.newrelic.com","b04b883ad2",11086,"cFteRUULX1wHFhtIEFxeVVJDFxxDBwVGWwo=",0.0,524,new Date().getTime(),"","","","",""])</script></body>
+</html>

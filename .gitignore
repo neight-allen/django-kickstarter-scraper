@@ -1,4 +1,8 @@
 *.log
 *.pot
 *.pyc
+*.sql
+*.zip
+*.csv
+*.txt
 local_settings.py
