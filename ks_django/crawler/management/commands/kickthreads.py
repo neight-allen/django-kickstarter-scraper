@@ -40,7 +40,7 @@ def eLog(text):
 
 def parseSearchResults(html):
     base_url = "http://www.kickstarter.com"
-    bs = BeautifulSoup(html)
+    bs = BeautifulSoup(html, 'html5lib')
     projects_added = 0
     urls = []
     for thumb in bs.body.find_all("div", "project-thumbnail"):
@@ -56,8 +56,11 @@ def parseSearchResults(html):
 
 def parseProject(html):
     base_url = "http://www.kickstarter.com"
-    bs = BeautifulSoup(html)
+    bs = BeautifulSoup(html, 'html5lib')
     fields = {}
+
+    if bs.find(id="hidden_project"):
+        return []
 
     #Get info from metadata
     propNames = {
@@ -124,7 +127,7 @@ def parseProject(html):
 
 def parseBackers(html):
     base_url = "http://www.kickstarter.com"
-    bs = BeautifulSoup(html)
+    bs = BeautifulSoup(html, 'html5lib')
     backers = []
     urls = []
     fields = {}
@@ -158,7 +161,7 @@ def parseBackers(html):
 
 def parseProfile(html):
     base_url = "http://www.kickstarter.com"
-    bs = BeautifulSoup(html)
+    bs = BeautifulSoup(html, 'html5lib')
 
     urls = []
     for link in bs.body.find_all("a", "project_item"):
@@ -419,7 +422,7 @@ class Command(BaseCommand):
         urlThreads = []
         processingThreads = []
 
-        HTMLs = Queue.Queue()
+        HTMLs = Queue.Queue(maxsize=1000)
         URLs = Queue.Queue()
 
         for i in range(5):
@@ -428,7 +431,7 @@ class Command(BaseCommand):
             t.start()
             urlThreads.append(t)
 
-        for i in range(1):
+        for i in range(3):
             t = DataminerThread(HTMLs, URLs)
             t.setDaemon(True)
             t.start()
