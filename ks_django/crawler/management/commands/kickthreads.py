@@ -59,7 +59,7 @@ def parseProject(html):
     bs = BeautifulSoup(html, 'html5lib')
     fields = {}
 
-    if bs.find(id="hidden_project"):
+    if bs.find(id="hidden_project") or bs.find(id="purged_project"):
         return []
 
     #Get info from metadata
