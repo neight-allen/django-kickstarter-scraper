@@ -238,11 +238,15 @@ def saveBackers(backers, projURL):
         raise
     backers_added = 0
     for backer in backers:
+        #If we can find the backer in the database
         if Backer.objects.filter(username = backer["username"]):
+            #Then grab him from the database and add the project to his list of projects
             thisBacker = Backer.objects.get(username = backer["username"])
             thisBacker.project.add(proj)
+        #If we can't find the backer in the database
         else:
             try:
+                #try to create the backer as part of the project's set
                 b = proj.backer_set.create(
                     username = backer["username"],
                     backed = backer["backed"],
@@ -251,23 +255,14 @@ def saveBackers(backers, projURL):
                     b.location = backer["location"]
                     b.save()
                 backers_added += 1
+            #If the backer is now found in the database, we'll fall to this error
             except IntegrityError:
-                if Backer.objects.filter(username = backer["username"]):
-                    thisBacker = Backer.objects.get(username = backer["username"])
-                    thisBacker.project.add(proj)
-                    eLog("IntegrityError: Adding project to existing backer")
-                else:
-                    b = Backer(
-                        username = backer["username"],
-                        backed = backer["backed"],
-                        name = backer["name"])
-                    b.save()
-                    b.project.add(proj)
-                    if("location" in backer):
-                        b.location = backer["location"]
-                    b.save()
-                    eLog("IntegrityError: Created new backer")
-                    backers_added += 1
+                #Since we were just told the backer is in the database, lets keep looking for it until we find it
+                while not Backer.objects.filter(username = backer["username"]):
+                    pass
+                thisBacker = Backer.objects.get(username = backer["username"])
+                thisBacker.project.add(proj)
+                eLog("IntegrityError: Adding project to existing backer")
             except:
                 eLog("Something went wrong while adding " + backer["username"])
                 raise
