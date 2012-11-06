@@ -260,7 +260,7 @@ def saveBackers(backers, projURL):
                     b = Backer(
                         username = backer["username"],
                         backed = backer["backed"],
-                        name = backer["name"]
+                        name = backer["name"],
                         project = proj)
                     if("location" in backer):
                         b.location = backer["location"]
