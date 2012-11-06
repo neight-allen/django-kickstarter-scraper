@@ -252,9 +252,20 @@ def saveBackers(backers, projURL):
                     b.save()
                 backers_added += 1
             except IntegrityError:
-                thisBacker = Backer.objects.get(username = backer["username"])
-                thisBacker.project.add(proj)
-                eLog("Adding project to existing backer")
+                if Backer.objects.filter(username = backer["username"]):
+                    thisBacker = Backer.objects.get(username = backer["username"])
+                    thisBacker.project.add(proj)
+                    eLog("IntegrityError: Adding project to existing backer")
+                else:
+                    b = Backer(
+                        username = backer["username"],
+                        backed = backer["backed"],
+                        name = backer["name"])
+                    if("location" in backer):
+                        b.location = backer["location"]
+                        b.save()
+                    eLog("IntegrityError: Created new backer")
+                    backers_added += 1
             except:
                 eLog("Something went wrong while adding " + backer["username"])
                 raise
