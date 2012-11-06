@@ -261,10 +261,11 @@ def saveBackers(backers, projURL):
                         username = backer["username"],
                         backed = backer["backed"],
                         name = backer["name"])
+                    b.save()
                     b.project.add(proj)
                     if("location" in backer):
                         b.location = backer["location"]
-                        b.save()
+                    b.save()
                     eLog("IntegrityError: Created new backer")
                     backers_added += 1
             except:
