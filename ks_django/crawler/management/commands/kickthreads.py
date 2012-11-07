@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction, connection
 from crawler.models import *
 from datetime import datetime, date
@@ -265,9 +266,7 @@ def saveBackers(backers, proj):
                 backers_added += 1
             #If the backer is now found in the database, we'll fall to this error
             except IntegrityError:
-                #Since we were just told the backer is in the database, lets keep looking for it until we find it
-                while not Backer.objects.filter(username = backer["username"]):
-                    pass
+                #Since we were just told the backer is in the database, it should be there
                 thisBacker = Backer.objects.get(username = backer["username"])
                 thisBacker.project.add(proj)
                 eLog("IntegrityError: Adding project to existing backer")
@@ -419,16 +418,20 @@ class DataminerThread(threading.Thread):
                 #project url. Scan project and add the backers page to the queue
                 else:									
                     self.queueURL(parseProject(item["html"]))
-            except:
+            except ObjectDoesNotExist:
                 message = colored(str(sys.exc_info()[0]) + ": ", "red") + item["url"]
-                for line in traceback.format_tb(sys.exc_info()[2]):
-                    message += line
                 for line in traceback.format_exception(sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2]):
                     message += line
                 print message
                 eLog(message)
                 self.out_queue.put(item["url"])
                 self.queue.task_done()
+            except:
+                message = colored(str(sys.exc_info()[0]) + ": ", "red") + item["url"]
+                for line in traceback.format_exception(sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2]):
+                    message += line
+                eLog(message)
+                raise
 
             
             removeFromDBQueue(item["url"])
