@@ -427,7 +427,12 @@ class DataminerThread(threading.Thread):
                 self.out_queue.put(item["url"])
                 self.queue.task_done()
             except:
-                message = colored(str(sys.exc_info()[0]) + ": ", "red") + item["url"]
+                
+                message = ""
+                message += colored(str(sys.exc_info()[0]) + ": ", "red") + item["url"]
+                message += "\n"
+                message += item["html"]
+                message += "\n"
                 for line in traceback.format_exception(sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2]):
                     message += line
                 eLog(message)
