@@ -123,7 +123,10 @@ def parseProject(html):
         fields["rewards"].append(reward)
 
     saveProject(fields)
-    return [fields["url"] + "/backers"]
+    if fields["backers"] > 0:
+        return [fields["url"] + "/backers"]
+    else:
+        return []
 
 def parseBackers(html):
     base_url = "http://www.kickstarter.com"
@@ -148,14 +151,24 @@ def parseBackers(html):
             print fields["username"] + " has backed " + str(fields["backed"]) + " projects."
             pLog(fields["username"] + " has backed " + str(fields["backed"]) + " projects.")
     
-    projURL = bs.find("meta", {"property": "og:url"})['content']
-    saveBackers(backers, projURL)
+    newURL = bs.find("meta", {"property": "og:url"})['content']
+    proj = getProjByURL(newURL)
+    if not proj:
+        jsonText = re.search(r"window.current_project = (.+)", html).group(1)
+        projectObject = json.loads(jsonText)
+        userID = projectObject["creator"]["id"]
+        oldURL = re.sub(r'/projects/(.+)/', '/projects/' + str(userID) + '/', newURL)
+        proj = getProjByURL(oldURL)
+        proj.url = newURL
+        proj.save()
+
+    saveBackers(backers, proj)
 
     if bs.body.find("div", "pagination") and bs.body.find("div", "pagination").find("a", "next_page"):
         next = bs.body.find("div", "pagination").find("a", "next_page")
         urls.append(base_url + next["href"])
     else:
-        markAsFinished(projURL)
+        markAsFinished(newURL)
     
     return urls
 
@@ -230,12 +243,7 @@ def saveProject(fields):
 
     return True
 
-def saveBackers(backers, projURL):
-    try:
-        proj = Project.objects.get(url=projURL)
-    except:
-        eLog("Couldn't Find " + projURL)
-        raise
+def saveBackers(backers, proj):
     backers_added = 0
     for backer in backers:
         #If we can find the backer in the database
@@ -281,6 +289,7 @@ def markAsFinished(projURL):
     proj.save()
 
 def removeFromDBQueue(projURL):
+    URLsDone(url=projURL).save()
     URLQueue.objects.filter(url=projURL).delete()
 
 def queueURLs(queue):
@@ -302,6 +311,12 @@ def threadsRunning(threads):
         allAlive = allAlive and thread.isAlive()
     return allAlive
 
+def getProjByURL(projURL):
+    try:
+        proj = Project.objects.get(url=projURL)        
+    except:
+        return None
+    return proj
 
 class ThreadUrl(threading.Thread):
     """Threaded Url Grab"""
@@ -398,7 +413,7 @@ class DataminerThread(threading.Thread):
                 	self.queueURL(parseProfile(item["html"]))
 
                 #backers url. Scan for new profiles, and add backers to projects
-                elif(re.search(r"/backers\?", item["url"]) or re.search(r"/backers$", item["url"])):
+                elif(re.search(r"/backers\?", item["url"]) or re.search(r"/backers$", item["url"])): #edge case, project name starts with "backers"
                 	self.queueURL(parseBackers(item["html"]))
                 
                 #project url. Scan project and add the backers page to the queue
@@ -415,7 +430,7 @@ class DataminerThread(threading.Thread):
                 self.out_queue.put(item["url"])
                 self.queue.task_done()
 
-            URLsDone(url=item["url"]).save()
+            
             removeFromDBQueue(item["url"])
             self.queue.task_done()
 
