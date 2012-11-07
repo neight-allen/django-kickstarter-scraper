@@ -105,7 +105,7 @@ def parseProject(html):
 
     #Now lets get the rewards
     fields["rewards"] = []
-    rewards = bs.find_all("div", "NS-projects-reward")
+    rewards = bs.find(id="what-you-get").find_all("div", "NS-projects-reward")
     for r in rewards:
         reward = {}
         reward["amount"] = re.sub(r"[^\d]+", "", r.h3.text) #reward amount
@@ -428,10 +428,8 @@ class DataminerThread(threading.Thread):
                 self.queue.task_done()
             except:
                 
-                message = ""
+                message = "\n"
                 message += colored(str(sys.exc_info()[0]) + ": ", "red") + item["url"]
-                message += "\n"
-                message += item["html"]
                 message += "\n"
                 for line in traceback.format_exception(sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2]):
                     message += line
