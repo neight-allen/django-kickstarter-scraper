@@ -115,7 +115,7 @@ def parseProject(html):
 
 
     #Then there's a few things to get from the page itself
-    numbers = bs.body.find(id="stats").find("div", "num")
+    numbers = bs.body.find(id="pledged")
     fields["goal"] = numbers["data-goal"]
     fields["pledged"] = numbers["data-pledged"]
     fields["duration"] = bs.body.find(id="project_duration_data")["data-duration"]
