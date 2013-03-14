@@ -13,6 +13,7 @@ import sys
 import time
 import json
 import traceback
+import HTMLParser
 from bs4 import BeautifulSoup
 
 def writeToFile(text, filename):
@@ -39,13 +40,31 @@ def uLog(text):
 def eLog(text):
     writeToFile(text, "errorLog")
 
+def processJSON(html):
+    html_parser = HTMLParser.HTMLParser()
+    try:
+        jsonText = re.search(r"window.current_project = \"(.+)\";", html).group(1)
+        tempObject = json.loads('{"text":"' + jsonText + '"}')
+        jsonText = html_parser.unescape(tempObject["text"])
+        #jsonText = re.sub("&quot;", '"', jsonText) #convert the html escaped quotes
+        #jsonText = re.sub("&amp;", '&', jsonText) #convert the html escaped ampersand
+        #jsonText = re.sub('\\\\"', '\"', jsonText) #do a little unescaping
+        #for h in list(set(re.findall(r"&#x(.+);", jsonText))): #convert hex from the json into ascii
+        #    jsonText = re.sub(r"&#x" + h + ";", h.decode("hex"), jsonText)
+
+        return json.loads(jsonText)
+    except:
+        print jsonText + "\n\n"
+        raise
+
 def parseSearchResults(html):
     base_url = "http://www.kickstarter.com"
     bs = BeautifulSoup(html, 'html5lib')
     projects_added = 0
     urls = []
     for thumb in bs.body.find_all("div", "project-thumbnail"):
-        urls.append(base_url + thumb.a["href"].split('?')[0])
+        #urls.append(base_url + thumb.a["href"].split('?')[0])
+        urls.append(re.sub(r"https://", "http://", thumb.a["href"].split('?')[0]))
     status = str(len(urls)) + " projects found."
     if bs.body.find("div", "pagination") and bs.body.find("div", "pagination").find("a", "next_page"):
         next = bs.body.find("div", "pagination").find("a", "next_page")
@@ -67,8 +86,8 @@ def parseProject(html):
     propNames = {
         "latitude" : "kickstarter:location:latitude",
         "longitude" : "kickstarter:location:longitude",
-        #"title" : "og:title",
-        #"url" : "og:url",
+        "name" : "og:title",
+        "url" : "og:url"
     }
 
     for propName in propNames:
@@ -80,27 +99,34 @@ def parseProject(html):
 
 
     #Get what we can from the JSON that's at the top of the page
-    jsonText = re.search(r"window.current_project = (.+)", html).group(1)
-    projectObject = json.loads(jsonText)
-    
-    fields["name"] = projectObject["name"]
-    fields["url"] = projectObject["urls"]["web"]["project"]
-    fields["category"] = projectObject["category"]["name"]
-    fields["goal"] = float(projectObject["goal"])
-    fields["raised"] = float(projectObject["pledged"])    
-    fields["backers"] = int(projectObject["stats"]["backers_count"])
-    fields["date"] = datetime.fromtimestamp(projectObject["launched_at"])
+    #projectObject = processJSON(html)
+
+    #fields["name"] = projectObject["name"]
+    #fields["url"] = projectObject["urls"]["web"]["project"]
+    #fields["category"] = projectObject["category"]["name"]
+    #fields["goal"] = float(projectObject["goal"])
+    #fields["raised"] = float(projectObject["pledged"])    
+    #fields["backers"] = int(projectObject["stats"]["backers_count"])
+    #fields["date"] = datetime.fromtimestamp(projectObject["launched_at"])
     #fields["date"] = projectObject["launched_at"]
-    duration = projectObject["deadline"] - projectObject["launched_at"]
-    fields["duration"] = duration / 60.0 / 60.0 / 24.0
+    #duration = projectObject["deadline"] - projectObject["launched_at"]
+    #fields["duration"] = duration / 60.0 / 60.0 / 24.0
+    fields["date"] = datetime.fromtimestamp(float(re.search(r"&quot;launched_at&quot;:(\d+),&quot;", html).group(1)))
 
 
     #Then there's a few things to get from the page itself
+    numbers = bs.body.find(id="stats").find("div", "num")
+    fields["goal"] = numbers["data-goal"]
+    fields["pledged"] = numbers["data-pledged"]
+    fields["duration"] = bs.body.find(id="project_duration_data")["data-duration"]
     fields["faqs"] = len(bs.body.find("ul", "faqs").find_all("li"))
     fields["comments"] = bs.body.find(id="comments_count").find("span", "count").text
     fields["comments"] = re.sub(r"[^\d\.]", "", fields["comments"])
+    fields["backers"] = bs.body.find(id="backers_nav").find("span", "count").text
+    fields["backers"] = re.sub(r"[^\d\.]", "", fields["backers"])
     cat = bs.body.find(id="project-metadata").find("li", "category")
     fields["parentCat"] = cat["data-project-parent-category"]
+    fields["category"] = cat.text
     fields["about"] = bs.body.find("div", {"class": "full-description"}).text
 
     #Now lets get the rewards
@@ -108,7 +134,7 @@ def parseProject(html):
     rewards = bs.find(id="what-you-get").find_all("div", "NS-projects-reward")
     for r in rewards:
         reward = {}
-        reward["amount"] = re.sub(r"[^\d]+", "", r.h3.text) #reward amount
+        reward["amount"] = re.sub(r"[^\d]+", "", r.h5.text) #reward amount
         reward["text"] = r.find("div", "desc").p.text.strip()
         backers = r.find("span", "num-backers")
         backers = re.sub(r"[^\d]+", "", backers.text)
@@ -144,7 +170,7 @@ def parseBackers(html):
         if b.div.find("p", "backings"):
             backed = re.sub(r"[^\d]", "", b.div.find("p", "backings").text)
         fields["backed"] = int(backed) + 1
-        fields["name"] = b.div.h3.text.strip()
+        fields["name"] = b.div.h5.text.strip()
         backers.append(fields)
         #Add this profile to the queue to find more projects
         if(fields["backed"] > 99):
@@ -155,9 +181,8 @@ def parseBackers(html):
     newURL = bs.find("meta", {"property": "og:url"})['content']
     proj = getProjByURL(newURL)
     if not proj:
-        jsonText = re.search(r"window.current_project = (.+)", html).group(1)
-        projectObject = json.loads(jsonText)
-        userID = projectObject["creator"]["id"]
+        projectObject = processJSON(html)
+        userID = re.search(r"&quot;creator&quot;:{&quot;id&quot;:(\d+),&quot;", html).group(1)
         oldURL = re.sub(r'/projects/(.+)/', '/projects/' + str(userID) + '/', newURL)
         proj = getProjByURL(oldURL)
         proj.url = newURL
@@ -251,7 +276,13 @@ def saveBackers(backers, proj):
         if Backer.objects.filter(username = backer["username"]):
             #Then grab him from the database and add the project to his list of projects
             thisBacker = Backer.objects.get(username = backer["username"])
-            thisBacker.project.add(proj)
+            try:
+                thisBacker.project.add(proj)
+            except IntegrityError:
+                eLog(backer["username"] + " already backing " + proj.name)
+            except:
+                eLog("Something went wrong while adding " + backer["username"] + " to " + proj.name)
+                raise
         #If we can't find the backer in the database
         else:
             try:
@@ -333,7 +364,7 @@ class ThreadUrl(threading.Thread):
         waitTime = 2
         while self.running:
             host = self.queue.get()
-            if URLsDone.objects.filter(url=host) or Project.objects.filter(url=host):
+            if URLsDone.objects.filter(url=host):
                 removeFromDBQueue(host)
                 qLog("Skipping " + host)
                 self.queue.task_done()
@@ -389,11 +420,14 @@ class DataminerThread(threading.Thread):
     def queueURL(self, urls):
         if urls:
             added = 0
+            createList = []
             for url in urls:
-                if not URLsDone.objects.filter(url=url) and not URLQueue.objects.filter(url=url) and not Project.objects.filter(url=url):
+                url = re.sub(r"https://", "http://", url)
+                if not URLsDone.objects.filter(url=url) and not URLQueue.objects.filter(url=url):
                     self.out_queue.put(url)
-                    URLQueue(url=url).save()
+                    createList.append(URLQueue(url=url))
                     added += 1
+            URLQueue.objects.bulk_create(createList)
             message = str(added) + "/" + str(len(urls)) + " added to the queue"
             print message
             qLog(message)
@@ -438,7 +472,8 @@ class DataminerThread(threading.Thread):
 
             
             removeFromDBQueue(item["url"])
-            self.queue.task_done()
+            if not self.queue.empty():
+                self.queue.task_done()
 
     def stop(self):
         self.running = False

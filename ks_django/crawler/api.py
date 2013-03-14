@@ -13,12 +13,23 @@ class RewardResource(ModelResource):
         fields = ['price', 'backers']
 
 class ProjectResource(ModelResource):
-    rewards = fields.ToManyField(RewardResource, 'rewards', full=True)
+    #rewards = fields.ToManyField(RewardResource, 'rewards', full=True)
     class Meta:
         queryset = Project.objects.all()
         resource_name = 'project'
         filtering = {
             'parentCat': ALL
         }
-        excludes = ['about']
+        #excludes = ['about']
+        fields = [
+            'id',
+            'parentCat',
+            'raised',
+            'backers',
+            'goal',
+            'comments',
+            'lat',
+            'lon'
+        ]
+        #ordering = ['date_end']
 
