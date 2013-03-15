@@ -116,8 +116,8 @@ def parseProject(html):
 
     #Then there's a few things to get from the page itself
     numbers = bs.body.find(id="pledged")
-    fields["goal"] = numbers["data-goal"]
-    fields["pledged"] = numbers["data-pledged"]
+    fields["goal"] = float(numbers["data-goal"])
+    fields["pledged"] = float(numbers["data-pledged"])
     fields["duration"] = bs.body.find(id="project_duration_data")["data-duration"]
     fields["faqs"] = len(bs.body.find("ul", "faqs").find_all("li"))
     fields["comments"] = bs.body.find(id="comments_count").find("span", "count").text
@@ -216,7 +216,7 @@ def saveProject(fields):
     proj = Project()
     proj.url = fields["url"]
     proj.name = fields["name"]
-    proj.raised = fields["raised"]
+    proj.raised = fields["pledged"]
     proj.backers = fields["backers"]
     proj.goal = fields["goal"]
     proj.faqs = fields["faqs"]
