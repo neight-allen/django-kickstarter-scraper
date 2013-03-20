@@ -6,6 +6,7 @@ from crawler.models import *
 from datetime import datetime, date
 from termcolor import colored
 import urllib2
+import os
 import Queue
 import threading
 import re
@@ -17,28 +18,29 @@ import HTMLParser
 from bs4 import BeautifulSoup
 
 def writeToFile(text, filename):
-    base_folder = "../../"
+    dir = os.path.dirname(__file__)
+    dir = os.path.join(dir, '../../../logs/')
     full = "full"
     text += "\n"
     text = text.encode('ascii', 'replace')
-    f = open(filename + ".2.txt", 'a+')
+    f = open(dir + filename + ".log", 'a+')
     f.write(text)
     f.close()
-    f = open(full + ".2.txt", 'a+')
+    f = open(dir + full + ".log", 'a+')
     f.write(text)
     f.close()
 
 def pLog(text):
-    writeToFile(text, "processLog")
+    writeToFile(text, "process")
 
 def qLog(text):
-    writeToFile(text, "queueLog")
+    writeToFile(text, "queue")
 
 def uLog(text):
-    writeToFile(text, "urlLog")
+    writeToFile(text, "url")
 
 def eLog(text):
-    writeToFile(text, "errorLog")
+    writeToFile(text, "error")
 
 def processJSON(html):
     html_parser = HTMLParser.HTMLParser()
