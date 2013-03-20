@@ -470,6 +470,7 @@ class DataminerThread(threading.Thread):
                 self.out_queue.put(item["url"])
                 self.queue.task_done()
             except LookupError:
+                eLog("Defering " + item["url"])
                 deferURL(item["url"])
                 self.queue.task_done()
             except:
