@@ -159,12 +159,8 @@ def parseProject(html):
 
 def parseBackers(html):
     base_url = "http://www.kickstarter.com"
-    try:
-        bs = BeautifulSoup(html, 'html5lib')
-    except LookupError:
-        bs = BeautifulSoup(html)
-    except:
-        bs = BeautifulSoup(html)
+    bs = BeautifulSoup(html, 'html5lib')
+
 
     backers = []
     urls = []
@@ -356,6 +352,11 @@ def getProjByURL(projURL):
         return None
     return proj
 
+def deferURL(projURL):
+    Wproject(url=projURL).save()
+    removeFromDBQueue(projURL)
+
+
 class ThreadUrl(threading.Thread):
     """Threaded Url Grab"""
     def __init__(self, queue, out_queue):
@@ -468,14 +469,17 @@ class DataminerThread(threading.Thread):
                 eLog(message)
                 self.out_queue.put(item["url"])
                 self.queue.task_done()
+            except LookupError:
+                deferURL(item["url"])
+                self.queue.task_done()
             except:
-                
                 message = "\n"
                 message += colored(str(sys.exc_info()[0]) + ": ", "red") + item["url"]
                 message += "\n"
                 for line in traceback.format_exception(sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2]):
                     message += line
                 eLog(message)
+                self.queue.task_done()
                 raise
 
             
