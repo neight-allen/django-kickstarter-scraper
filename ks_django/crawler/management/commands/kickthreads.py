@@ -157,7 +157,11 @@ def parseProject(html):
 
 def parseBackers(html):
     base_url = "http://www.kickstarter.com"
-    bs = BeautifulSoup(html, 'html5lib')
+    try:
+        bs = BeautifulSoup(html, 'html5lib')
+    except LookupError:
+        bs = BeautifulSoup(html)
+
     backers = []
     urls = []
     fields = {}
