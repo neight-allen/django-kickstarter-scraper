@@ -161,6 +161,8 @@ def parseBackers(html):
         bs = BeautifulSoup(html, 'html5lib')
     except LookupError:
         bs = BeautifulSoup(html)
+    except:
+        bs = BeautifulSoup(html)
 
     backers = []
     urls = []
