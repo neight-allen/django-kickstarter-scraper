@@ -59,18 +59,24 @@ def processJSON(html):
         print jsonText + "\n\n"
         raise
 
+def formKickstarterURL(url):
+    url = re.sub(r"^https://", "http://", url)
+    if re.search(r"^/", url):
+        url = "http://www.kickstarter.com" + url
+    return url
+
+
 def parseSearchResults(html):
     base_url = "http://www.kickstarter.com"
     bs = BeautifulSoup(html, 'html5lib')
     projects_added = 0
     urls = []
     for thumb in bs.body.find_all("div", "project-thumbnail"):
-        #urls.append(base_url + thumb.a["href"].split('?')[0])
-        urls.append(re.sub(r"https://", "http://", thumb.a["href"].split('?')[0]))
+        urls.append(formKickstarterURL(thumb.a["href"].split('?')[0]))
     status = str(len(urls)) + " projects found."
     if bs.body.find("div", "pagination") and bs.body.find("div", "pagination").find("a", "next_page"):
         next = bs.body.find("div", "pagination").find("a", "next_page")
-        urls.append(base_url + next["href"])
+        urls.append(formKickstarterURL(next["href"]))
         status += " Adding " + urls[-1]
     print status
     qLog(status)
@@ -99,7 +105,7 @@ def parseProject(html):
         else:
             fields[propName] = 0
 
-
+    fields["url"] = formKickstarterURL(fields["url"])
     #Get what we can from the JSON that's at the top of the page
     #projectObject = processJSON(html)
 
@@ -178,7 +184,7 @@ def parseBackers(html):
         backers.append(fields)
         #Add this profile to the queue to find more projects
         if(fields["backed"] > 99):
-            urls.append(base_url + "/profile/" + fields["username"])
+            urls.append(formKickstarterURL("/profile/" + fields["username"]))
             print fields["username"] + " has backed " + str(fields["backed"]) + " projects."
             pLog(fields["username"] + " has backed " + str(fields["backed"]) + " projects.")
     
@@ -196,7 +202,7 @@ def parseBackers(html):
 
     if bs.body.find("div", "pagination") and bs.body.find("div", "pagination").find("a", "next_page"):
         next = bs.body.find("div", "pagination").find("a", "next_page")
-        urls.append(base_url + next["href"])
+        urls.append(formKickstarterURL(next["href"]))
     else:
         markAsFinished(newURL)
     
@@ -208,10 +214,10 @@ def parseProfile(html):
 
     urls = []
     for link in bs.body.find_all("a", "project_item"):
-        urls.append(base_url + link["href"].split('?')[0])
+        urls.append(formKickstarterURL(link["href"].split('?')[0]))
     if bs.body.find("div", "pagination") and bs.body.find("div", "pagination").find("a", "next_page"):
         next = bs.body.find("div", "pagination").find("a", "next_page")
-        urls.append(base_url + next["href"])
+        urls.append(formKickstarterURL(next["href"]))
     message = str(len(urls)) + " found in a profile page."
     pLog(message)
     return urls
@@ -322,14 +328,17 @@ def markAsFinished(projURL):
     proj.finished = True
     proj.save()
 
+
 def removeFromDBQueue(projURL):
     URLsDone(url=projURL).save()
     URLQueue.objects.filter(url=projURL).delete()
+
 
 def queueURLs(queue):
     urlSet = URLQueue.objects.all()
     for url in urlSet:
         queue.put(url.url)
+
 
 def saveURLList(urls):
     uqList = []
@@ -339,18 +348,21 @@ def saveURLList(urls):
     db.close_connection()
     URLQueue.objects.bulk_create(uqList)
 
+
 def threadsRunning(threads):
     allAlive = True
     for thread in threads:
         allAlive = allAlive and thread.isAlive()
     return allAlive
 
+
 def getProjByURL(projURL):
     try:
-        proj = Project.objects.get(url=projURL)        
+        proj = Project.objects.get(url=projURL)
     except:
         return None
     return proj
+
 
 def deferURL(projURL):
     Wproject(url=projURL).save()
@@ -379,16 +391,15 @@ class ThreadUrl(threading.Thread):
                 self.queue.task_done()
                 continue
             try:
-            	url = opener.open(host)
+                url = opener.open(host)
             except urllib2.HTTPError, error:
-            	if error.code in [429, 503]:
+                if error.code in [429, 503]:
                     waitTime *= 2
                     message = colored("Code: " + str(error.code), "red") + " Waiting " + str(waitTime) + " sec and retrying " + host
                     print message
                     uLog(message)
                     self.queue.put(host)
                     self.queue.task_done()
-                    
                     time.sleep(waitTime)
                     continue
             	else:
@@ -405,20 +416,6 @@ class ThreadUrl(threading.Thread):
     def stop(self):
         self.running = False
 
-class Titler(threading.Thread):
-    def __init__(self, queue):
-        threading.Thread.__init__(self)
-        self.queue = queue
-        self.running = True
-
-    def run(self):
-        while not self.queue.empty() or self.running:
-            html = self.queue.get()
-            self.queue.task_done()
-
-    def stop(self):
-        self.running = False
-
 class DataminerThread(threading.Thread):
     def __init__(self, queue, out_queue):
         threading.Thread.__init__(self)
@@ -432,6 +429,8 @@ class DataminerThread(threading.Thread):
             createList = []
             for url in urls:
                 url = re.sub(r"https://", "http://", url)
+                if not re.search(r"^http://", url):
+                    url = "http://www.kickstarter.com" + url
                 if not URLsDone.objects.filter(url=url) and not URLQueue.objects.filter(url=url):
                     self.out_queue.put(url)
                     createList.append(URLQueue(url=url))
