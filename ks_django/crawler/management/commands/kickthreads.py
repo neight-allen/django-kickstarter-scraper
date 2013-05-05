@@ -498,16 +498,16 @@ class Command(BaseCommand):
         urlThreads = []
         processingThreads = []
 
-        HTMLs = Queue.Queue(maxsize=1000)
+        HTMLs = Queue.Queue(maxsize=100)
         URLs = Queue.Queue()
 
-        for i in range(6):
+        for i in range(2):
             t = ThreadUrl(URLs, HTMLs)
             #t.setDaemon(True)
             t.start()
             urlThreads.append(t)
 
-        for i in range(4):
+        for i in range(2):
             t = DataminerThread(HTMLs, URLs)
             t.setDaemon(True)
             t.start()
