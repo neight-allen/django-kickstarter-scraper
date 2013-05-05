@@ -411,8 +411,6 @@ class ThreadUrl(threading.Thread):
             self.out_queue.put(item)
             #print colored("Success! ", "green") + host
             uLog(colored("Success! ", "green") + host)
-            if(self.out_queue.qsize % 10):
-                uLog(str(self.out_queue.qsize) + " pages waiting to be parsed")
             self.queue.task_done()
     
     def stop(self):
@@ -503,13 +501,13 @@ class Command(BaseCommand):
         HTMLs = Queue.Queue(maxsize=1000)
         URLs = Queue.Queue()
 
-        for i in range(5):
+        for i in range(6):
             t = ThreadUrl(URLs, HTMLs)
             #t.setDaemon(True)
             t.start()
             urlThreads.append(t)
 
-        for i in range(3):
+        for i in range(4):
             t = DataminerThread(HTMLs, URLs)
             t.setDaemon(True)
             t.start()
