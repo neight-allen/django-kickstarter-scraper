@@ -411,6 +411,8 @@ class ThreadUrl(threading.Thread):
             self.out_queue.put(item)
             #print colored("Success! ", "green") + host
             uLog(colored("Success! ", "green") + host)
+            if(self.out_queue.qsize % 10):
+                uLog(str(self.out_queue.qsize) + " pages waiting to be parsed")
             self.queue.task_done()
     
     def stop(self):
@@ -520,9 +522,11 @@ class Command(BaseCommand):
         running = True
         
         while running:
-            time.sleep(1)
+            time.sleep(4)
             transaction.enter_transaction_management()
             transaction.commit() # Whenever you want to see new data
+
+            uLog(str(HTMLs.qsize) + " htmls waiting to be parsed")
 
             if Cursor.objects.filter(id=2) or not threadsRunning(processingThreads + urlThreads):
                 print colored("FULL STOP", "red")
