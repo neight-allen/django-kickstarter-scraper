@@ -524,7 +524,7 @@ class Command(BaseCommand):
             transaction.enter_transaction_management()
             transaction.commit() # Whenever you want to see new data
 
-            uLog(str(HTMLs.qsize) + " htmls waiting to be parsed")
+            uLog(str(HTMLs.qsize()) + " htmls waiting to be parsed")
 
             if Cursor.objects.filter(id=2) or not threadsRunning(processingThreads + urlThreads):
                 print colored("FULL STOP", "red")
