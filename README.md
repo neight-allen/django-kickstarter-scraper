@@ -41,3 +41,4 @@ The scraper runs until the URLQueue table is empty. This also means that you nee
 * Pretty much everything happens in that one kickthreads file. If I knew more about python, I'd probably break it out into modules.
 * Supports the following pages: Projects, Project Backers, Backer Profiles, Search Results
 * Doesn't support the home page or curator pages or any others you can find. Yet ;)
+* The last time I ran it was in May 2013. Kickstarter periodically changes their HTML, and it's likely some of the parsing will need to be rewritten
