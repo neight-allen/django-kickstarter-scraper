@@ -26,6 +26,12 @@ touch full.log process.log queue.log url.log error.log
   
 South might require some additional stuff. I don't remember. You can always disable it in the enabled apps section of settings. Or check it out [here](http://south.readthedocs.org/en/latest/)
 
+####DB dump
+
+Here's a DB dump from my last scrape. It has 87K projects that you won't have to download. You'll still have to seed it with search pages in the URLQueue table.
+
+[Kickscrape DB Dump](https://docs.google.com/file/d/0Bx11M2JmRNl5RlB5Vm1MUUZWbjg/edit?usp=sharing)
+
 ###Use
 This command starts the scraper
 
