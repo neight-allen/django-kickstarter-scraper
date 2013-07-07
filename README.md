@@ -1,7 +1,7 @@
 django-kickstarter-scraper
 ==========================
 
-Scrapes kickstarter and stores to a mySQL database using django.
+Scrapes kickstarter and stores to a mySQL database using django. This was a fun project, but I don't have any plans to update this. I'll be watching for pull requests.
 
 As of early july 2013, its functional, but poorly documented, and probably written all wrong. I had used very little django or even python prior to this project. This project was supposed to teach me more about both, and it has.
 
