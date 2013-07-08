@@ -1,16 +1,18 @@
 django-kickstarter-scraper
 ==========================
 
-Scrapes kickstarter and stores to a mySQL database using django. This was a fun project, but I don't have any plans to update this. I'll be watching for pull requests.
+Scrapes kickstarter and stores to a mySQL database using django. Currently designed to be manually started, but could be useful as a cron job with a few tweaks, like the ability to parse 'recently added projects' pages.
 
 As of early july 2013, its functional, but poorly documented, and probably written all wrong. I had used very little django or even python prior to this project. This project was supposed to teach me more about both, and it has.
+
+This was a fun project, but I don't have any plans to update this. I'll be watching for pull requests.
 
 ###Installation
 I'm writing all this from memory. If I'm missing steps, please add them. Or just make it smarter ;)
 
 Needs a bunch of libaries to work. This may help:
 
-`easy_install django south django-tastypie BeautifulSoup4 urllib2 termcolor`
+`sudo easy_install django south django-tastypie BeautifulSoup4 urllib2 termcolor`
   
 Like any other django app, you'll need to set up a database. The current settings file is expecting a mySQL database named kickscrape on localhost. Don't forget to sync the database.
 
